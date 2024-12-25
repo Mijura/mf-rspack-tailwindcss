@@ -19,13 +19,16 @@ Ensure you have the following installed on your machine:
 
 ### Installation
 
-1. Copy the repository:
+1. Copy the repository using degit:
 
    ```bash
-   npx degit https://github.com/Mijura/mf-rspack-tailwindcss.git
+   npx degit https://github.com/Mijura/mf-rspack-tailwindcss.git repo_name
    ```
 
+   **Note:** Replace `repo_name` with the name you want for your local project folder.
+
 2. Navigate to the project directory:
+
    ```bash
    cd mf-rspack-tailwindcss
    ```
@@ -38,6 +41,7 @@ Ensure you have the following installed on your machine:
 ### Running the Development Server
 
 Start the development server:
+
 ```bash
 yarn serve
 ```
@@ -47,6 +51,7 @@ Access the application at http://localhost:3000.
 ### Building for Production
 
 To create a production build:
+
 ```bash
 yarn build
 ```
@@ -57,7 +62,7 @@ The production-ready files will be available in the `dist/` directory.
 
 ```
 mf-rspack-tailwindcss/
-├── configs        
+├── configs
 │   ├── rspack.base.js            # Rspack base configuration
 │   ├── rspack.dev.js             # Configuration for development server
 │   ├── rspack.prod.js            # Configuration for production build
@@ -76,23 +81,23 @@ mf-rspack-tailwindcss/
 Update the `rspack.base.js` file to configure Module Federation:
 
 ```javascript
-const ModuleFederationPlugin = require("@rspack/plugin-module-federation");
+const ModuleFederationPlugin = require("@rspack/plugin-module-federation")
 
 module.exports = {
-  plugins: [
-    new ModuleFederationPlugin({
-      name: "app",
-      filename: "remoteEntry.js",
-      remotes: {
-        otherApp: "otherApp@http://localhost:3001/remoteEntry.js",
-      },
-      exposes: {
-        "./Component": "./src/components/ExampleComponent",
-      },
-      shared: { react: { singleton: true }, "react-dom": { singleton: true } },
-    }),
-  ],
-};
+	plugins: [
+		new ModuleFederationPlugin({
+			name: "app",
+			filename: "remoteEntry.js",
+			remotes: {
+				otherApp: "otherApp@http://localhost:3001/remoteEntry.js",
+			},
+			exposes: {
+				"./Component": "./src/components/ExampleComponent",
+			},
+			shared: { react: { singleton: true }, "react-dom": { singleton: true } },
+		}),
+	],
+}
 ```
 
 ### TailwindCSS
@@ -101,12 +106,12 @@ Customize your TailwindCSS settings in `tailwind.config.js`:
 
 ```javascript
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-};
+	content: ["./src/**/*.{js,jsx,ts,tsx}"],
+	theme: {
+		extend: {},
+	},
+	plugins: [],
+}
 ```
 
 Happy coding with **Module Federation**, **Rspack**, and **TailwindCSS**!
