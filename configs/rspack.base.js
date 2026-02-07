@@ -2,6 +2,25 @@ const path = require("path")
 const rspack = require("@rspack/core")
 const Dotenv = require("dotenv-webpack")
 const { TsCheckerRspackPlugin } = require("ts-checker-rspack-plugin")
+const { ModuleFederationPlugin, createModuleFederationConfig } = require("@module-federation/enhanced/rspack")
+
+const mfConfig = createModuleFederationConfig({
+	name: "host",
+
+	exposes: {
+		"./App": "./src/App.tsx",
+	},
+	shared: {
+		react: {
+			singleton: true,
+			eager: true,
+		},
+		"react-dom": {
+			singleton: true,
+			eager: true,
+		},
+	},
+})
 
 // Target browsers, see: https://github.com/browserslist/browserslist
 const targets = ["chrome >= 87", "edge >= 88", "firefox >= 78", "safari >= 14"]
@@ -57,6 +76,7 @@ module.exports = {
 			path: "./.env",
 			safe: true,
 		}),
+		new ModuleFederationPlugin(mfConfig),
 		new TsCheckerRspackPlugin({
 			typescript: {
 				configOverwrite: {
