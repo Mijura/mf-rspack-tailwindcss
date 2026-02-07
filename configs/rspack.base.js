@@ -54,7 +54,7 @@ module.exports = {
 		}),
 		new rspack.HtmlRspackPlugin({
 			template: "public/index.html",
-			title: "Text-to-play engine that transforms imagination into playful apps.",
+			title: "Module Federation with Rspack",
 			filename: "index.html",
 			chunks: ["main"],
 		}),
